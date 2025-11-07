@@ -18,7 +18,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.sparktech.nearbyplacesfinder",
       "config": {
-        "googleMapsApiKey": "YOUR_IOS_API_KEY_HERE"
+        "googleMapsApiKey": "AQ.Ab8RN6JHAvPeupu7dx9-L4BknrVvMSPRdZLR-OfpTxiRy-GzWg"
       },
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app needs your location to show nearby places and provide directions.",
@@ -37,7 +37,7 @@
       ],
       "config": {
         "googleMaps": {
-          "apiKey": "YOUR_ANDROID_API_KEY_HERE"
+          "apiKey": "AQ.Ab8RN6JHAvPeupu7dx9-L4BknrVvMSPRdZLR-OfpTxiRy-GzWg"
         }
       }
     },
