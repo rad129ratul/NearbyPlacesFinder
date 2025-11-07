@@ -8,6 +8,7 @@ import {
     View
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import Header from '../components/Common/Header';
 import MapDisplay from '../components/Map/MapDisplay';
 import FilterButtons from '../components/UI/FilterButtons';
 import PlaceCard from '../components/UI/PlaceCard';
@@ -44,11 +45,9 @@ const HomeScreen = () => {
 
   const initializeLocation = async () => {
     try {
-      // Request permission first
       const permissionResult = await dispatch(requestLocationPermission()).unwrap();
       
       if (permissionResult) {
-        // Get current location
         const location = await dispatch(getCurrentLocation()).unwrap();
         dispatch(setCurrentLocation(location));
       }
@@ -80,11 +79,14 @@ const HomeScreen = () => {
   // Loading state
   if (locationLoading) {
     return (
-      <View style={[styles.centerContainer, { backgroundColor: currentTheme.colors.background }]}>
-        <ActivityIndicator size="large" color={currentTheme.colors.primary} />
-        <Text style={[styles.loadingText, { color: currentTheme.colors.text }]}>
-          Getting your location...
-        </Text>
+      <View style={[styles.fullContainer, { backgroundColor: currentTheme.colors.background }]}>
+        <Header />
+        <View style={styles.centerContainer}>
+          <ActivityIndicator size="large" color={currentTheme.colors.primary} />
+          <Text style={[styles.loadingText, { color: currentTheme.colors.text }]}>
+            Getting your location...
+          </Text>
+        </View>
       </View>
     );
   }
@@ -92,26 +94,32 @@ const HomeScreen = () => {
   // Error state
   if (locationError) {
     return (
-      <View style={[styles.centerContainer, { backgroundColor: currentTheme.colors.background }]}>
-        <Text style={styles.errorIcon}>📍</Text>
-        <Text style={[styles.errorTitle, { color: currentTheme.colors.text }]}>
-          Location Access Required
-        </Text>
-        <Text style={[styles.errorMessage, { color: currentTheme.colors.textSecondary }]}>
-          {ERROR_MESSAGES.LOCATION_PERMISSION_DENIED}
-        </Text>
+      <View style={[styles.fullContainer, { backgroundColor: currentTheme.colors.background }]}>
+        <Header />
+        <View style={styles.centerContainer}>
+          <Text style={styles.errorIcon}>📍</Text>
+          <Text style={[styles.errorTitle, { color: currentTheme.colors.text }]}>
+            Location Access Required
+          </Text>
+          <Text style={[styles.errorMessage, { color: currentTheme.colors.textSecondary }]}>
+            {ERROR_MESSAGES.LOCATION_PERMISSION_DENIED}
+          </Text>
+        </View>
       </View>
     );
   }
 
   return (
     <View style={[styles.container, { backgroundColor: currentTheme.colors.background }]}>
-      {/* Map Section - 40% of screen */}
+      {/* Header */}
+      <Header title="Nearby Places" />
+
+      {/* Map Section - 35% of screen */}
       <View style={styles.mapContainer}>
         <MapDisplay />
       </View>
 
-      {/* Content Section - 60% of screen */}
+      {/* Content Section - 65% of screen */}
       <View style={styles.contentContainer}>
         {/* Search Bar */}
         <View style={styles.searchSection}>
@@ -127,7 +135,7 @@ const HomeScreen = () => {
             Nearby Places
           </Text>
           <Text style={[styles.placeCount, { color: currentTheme.colors.textSecondary }]}>
-            {filteredPlaces.length} {filteredPlaces.length === 1 ? 'place' : 'places'} found
+            {filteredPlaces.length} {filteredPlaces.length === 1 ? 'place' : 'places'}
           </Text>
         </View>
 
@@ -171,11 +179,14 @@ const HomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  fullContainer: {
+    flex: 1,
+  },
   container: {
     flex: 1,
   },
   mapContainer: {
-    height: '40%',
+    height: '35%',
     width: '100%',
   },
   contentContainer: {
@@ -194,11 +205,11 @@ const styles = StyleSheet.create({
     paddingVertical: UI_CONSTANTS.SPACING.sm,
   },
   listTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '700',
   },
   placeCount: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '500',
   },
   listContent: {
@@ -218,7 +229,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     marginTop: UI_CONSTANTS.SPACING.md,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '500',
   },
   errorIcon: {
@@ -226,15 +237,15 @@ const styles = StyleSheet.create({
     marginBottom: UI_CONSTANTS.SPACING.md,
   },
   errorTitle: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '700',
     marginBottom: UI_CONSTANTS.SPACING.sm,
     textAlign: 'center',
   },
   errorMessage: {
-    fontSize: 16,
+    fontSize: 15,
     textAlign: 'center',
-    lineHeight: 24,
+    lineHeight: 22,
   },
   emptyContainer: {
     flex: 1,
@@ -247,7 +258,7 @@ const styles = StyleSheet.create({
     marginBottom: UI_CONSTANTS.SPACING.md,
   },
   emptyText: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '600',
     marginBottom: UI_CONSTANTS.SPACING.xs,
   },

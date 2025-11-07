@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import Header from '../components/Common/Header';
 import MapDisplay from '../components/Map/MapDisplay';
 import SearchBar from '../components/UI/SearchBar';
 import {
@@ -82,11 +83,14 @@ const MapScreen = () => {
   // Loading state
   if (locationLoading) {
     return (
-      <View style={[styles.centerContainer, { backgroundColor: currentTheme.colors.background }]}>
-        <ActivityIndicator size="large" color={currentTheme.colors.primary} />
-        <Text style={[styles.loadingText, { color: currentTheme.colors.text }]}>
-          Loading map...
-        </Text>
+      <View style={[styles.fullContainer, { backgroundColor: currentTheme.colors.background }]}>
+        <Header title="Map View" />
+        <View style={styles.centerContainer}>
+          <ActivityIndicator size="large" color={currentTheme.colors.primary} />
+          <Text style={[styles.loadingText, { color: currentTheme.colors.text }]}>
+            Loading map...
+          </Text>
+        </View>
       </View>
     );
   }
@@ -94,22 +98,30 @@ const MapScreen = () => {
   // Error state
   if (locationError) {
     return (
-      <View style={[styles.centerContainer, { backgroundColor: currentTheme.colors.background }]}>
-        <Text style={styles.errorIcon}>📍</Text>
-        <Text style={[styles.errorTitle, { color: currentTheme.colors.text }]}>
-          Location Access Required
-        </Text>
-        <Text style={[styles.errorMessage, { color: currentTheme.colors.textSecondary }]}>
-          {ERROR_MESSAGES.LOCATION_PERMISSION_DENIED}
-        </Text>
+      <View style={[styles.fullContainer, { backgroundColor: currentTheme.colors.background }]}>
+        <Header title="Map View" />
+        <View style={styles.centerContainer}>
+          <Text style={styles.errorIcon}>📍</Text>
+          <Text style={[styles.errorTitle, { color: currentTheme.colors.text }]}>
+            Location Access Required
+          </Text>
+          <Text style={[styles.errorMessage, { color: currentTheme.colors.textSecondary }]}>
+            {ERROR_MESSAGES.LOCATION_PERMISSION_DENIED}
+          </Text>
+        </View>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
+      {/* Header */}
+      <Header title="Map View" />
+
       {/* Full-screen Map */}
-      <MapDisplay />
+      <View style={styles.mapWrapper}>
+        <MapDisplay />
+      </View>
 
       {/* Floating Search Bar */}
       <View style={[
@@ -222,7 +234,13 @@ const MapScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  fullContainer: {
+    flex: 1,
+  },
   container: {
+    flex: 1,
+  },
+  mapWrapper: {
     flex: 1,
   },
   centerContainer: {
@@ -233,7 +251,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     marginTop: UI_CONSTANTS.SPACING.md,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '500',
   },
   errorIcon: {
@@ -241,19 +259,19 @@ const styles = StyleSheet.create({
     marginBottom: UI_CONSTANTS.SPACING.md,
   },
   errorTitle: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '700',
     marginBottom: UI_CONSTANTS.SPACING.sm,
     textAlign: 'center',
   },
   errorMessage: {
-    fontSize: 16,
+    fontSize: 15,
     textAlign: 'center',
-    lineHeight: 24,
+    lineHeight: 22,
   },
   searchContainer: {
     position: 'absolute',
-    top: 50,
+    top: 160,
     left: UI_CONSTANTS.SPACING.md,
     right: UI_CONSTANTS.SPACING.md,
     borderRadius: UI_CONSTANTS.INPUT_BORDER_RADIUS,
@@ -314,7 +332,7 @@ const styles = StyleSheet.create({
     paddingRight: 40,
   },
   placeName: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
     marginBottom: UI_CONSTANTS.SPACING.xs,
   },
@@ -351,7 +369,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   detailValue: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '600',
   },
   addressContainer: {
@@ -368,8 +386,8 @@ const styles = StyleSheet.create({
   },
   addressText: {
     flex: 1,
-    fontSize: 14,
-    lineHeight: 20,
+    fontSize: 13,
+    lineHeight: 19,
   },
   phoneContainer: {
     flexDirection: 'row',
