@@ -4,7 +4,7 @@
     "slug": "nearbyplacesfinder",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/react-logo.png",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
       "resizeMode": "contain",
@@ -26,13 +26,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#0d6efd"
       },
       "package": "com.sparktech.nearbyplacesfinder",
       "permissions": [
         "ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION"
+        "ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
       ],
       "config": {
         "googleMaps": {
@@ -50,6 +52,11 @@
           "locationAlwaysAndWhenInUsePermission": "Allow NearbyPlacesFinder to use your location to find places nearby."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "252fcf71-b269-42ef-be06-05a5d23f40bd"
+      }
+    }
   }
 }
