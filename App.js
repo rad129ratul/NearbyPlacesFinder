@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native'; // Add Text import
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import HomeScreen from './src/screens/HomeScreen';
@@ -25,14 +25,14 @@ export default function App() {
             name="Home" 
             component={HomeScreen}
             options={{
-              tabBarIcon: ({ color }) => <span style={{ fontSize: 24 }}>🏠</span>,
+              tabBarIcon: () => <Text style={{ fontSize: 24 }}>🏠</Text>,
             }}
           />
           <Tab.Screen 
             name="Map" 
             component={MapScreen}
             options={{
-              tabBarIcon: ({ color }) => <span style={{ fontSize: 24 }}>🗺️</span>,
+              tabBarIcon: () => <Text style={{ fontSize: 24 }}>🗺️</Text>,
             }}
           />
         </Tab.Navigator>
